@@ -1,35 +1,83 @@
 #include "Estudiant.hh"
 
-// Redondear, version funcion
+/* Constants */
 
-Estudiant redondear_e_f(const Estudiant& est)
-/* Pre: est tiene nota */
-/* Post: el resultado es un estudiante como est pero con la nota redondeada */
-{
-  Estudiant est2(est.consultar_DNI());
-  double notaR = ((int) (10.0 * (est.consultar_nota() + 0.05))) / 10.0;
-  est2.afegir_nota(notaR);
-  return est2;
+const char *ER1 = "No te nota";
+const char *ER2 = "Valor de la nota entre 0 a 10";
+const char *ER3 = "Ja te nota";
+const char *ER4 = "El DNI es incorrecte";
+
+Estudiant::Estudiant(){
+  dni = 0;
+  nota = -1;
+  //amb_nota = false;
 }
 
-// Redondear, version accion
-
-void redondear_e_a(Estudiant& est)
-/* Pre: est tiene nota */
-/* Post: est pasa a tener su nota original redondeada */
+Estudiant::Estudiant(int dni)
 {
-  est.modificar_nota(((int) (10. * (est.consultar_nota() + 0.05))) / 10.0);
+  if (dni < 0) throw PRO2Excepcio(ER4);
+  this->dni = dni;
+  //amb_nota = false;
+  nota = -1;
 }
 
-int main()
+void Estudiant::afegir_nota(double nota)
 {
-  Estudiant est;
-  cout << "Escribe un estudiante <DNI nota>" << endl;
-  est.llegir();
-  if (est.te_nota()) { // comprobamos la precondicion
-    //est=redondear_e_f(est);	// version funcion, en este caso es ineficiente
-    redondear_e_a(est);    // version accion
+  if (nota >= 0 and nota < MAX_NOTA) {
+    this->nota = nota; 
   }
-  cout << "El estudiante con la nota redondeada, o NP: " <<endl;
-  est.escriure();
+}
+
+void Estudiant::modificar_nota(double nota)
+{ 				
+  if (nota < 0 or nota > MAX_NOTA) {
+    throw PRO2Excepcio(ER2);
+  }
+  this->nota = nota;
+}
+
+bool Estudiant::te_nota() const
+{
+  return (nota > -1);
+}
+
+double Estudiant::consultar_nota() const
+{
+  if (not (nota > -1)) throw PRO2Excepcio(ER1);
+  return nota;
+}
+
+int Estudiant::consultar_DNI() const
+{
+  return dni;
+}
+
+double Estudiant::nota_maxima()
+{
+  return MAX_NOTA;
+}
+
+bool Estudiant::comp(const Estudiant& e1, const Estudiant& e2)
+{
+  return (e1.dni < e2.dni);
+}
+
+void Estudiant::llegir()
+{
+  cin >> dni;
+  if (dni < 0) throw PRO2Excepcio(ER4);
+  double x;
+  cin >> x;
+  if (x >= 0 and x <= MAX_NOTA) {
+    nota = x; 
+  }
+  else nota = -1;
+}
+
+void Estudiant::escriure() const
+{
+  if (nota > -1 and nota <= MAX_NOTA) {
+    cout << dni << " " << nota << endl;
+  }
+  else cout << dni << " NP" << endl;
 }
