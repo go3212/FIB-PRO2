@@ -4,8 +4,6 @@
 #include "PRO2Excepcio.hh"
 #include <iostream>
 
-
-
 class Estudiant {
     
   // Tipus de modul: dades
@@ -16,11 +14,13 @@ class Estudiant {
 private:
   int dni;
   double nota;
+  
   static const int MAX_NOTA = 10;
   /*
     Invariant de la representacio:
     - 0 <= dni
-    - si amb_nota, llavors 0 <= nota <= MAX_NOTA
+    - (escriu aqui la part que falta del nou invariant):
+
   */
     
 public:
@@ -33,12 +33,7 @@ public:
   Estudiant(int dni);
   /* Pre: dni >= 0 */
   /* Post: el resultat es un estudiant amb DNI = dni i sense nota */
-    
-  // Destructora: esborra automaticament els objectes locals en sortir
-  // d'un ambit de visibilitat
-    
-  ~Estudiant();
-    
+  
   //Modificadores
     
   void afegir_nota(double nota);
@@ -66,6 +61,11 @@ public:
   bool te_nota()  const;
   /* Pre: cert  */
   /* Post: el resultat indica si el parametre implicit te nota o no */
+
+  static bool comp(const Estudiant& e1, const Estudiant& e2);
+  /* Pre: cert  */
+  /* Post: el resultat indica si e1 te dni mes petit que e2 */
+
   
   // Lectura i escriptura
     
@@ -81,7 +81,4 @@ public:
   /* Post: s'han escrit els atributs del parametre implicit
      al canal estandard de sortida; si no te nota escriu "NP" */
 };
-
-static bool comp(const Estudiant& e1, const Estudiant& e2);
-
 #endif
