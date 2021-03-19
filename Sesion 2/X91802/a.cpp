@@ -20,8 +20,8 @@ pair<int,int> max_min_vest(const vector<Estudiant>& v)
         else return make_pair(-1, -1);
     }
 
-    // Inv: almenos el vector es size >= 1
-    //      almenos hay 1 estudiante con nota
+    // Inv: al menos el vector es size >= 1
+    //      al menos hay 1 estudiante con nota
     for (int i = posmax += 1; i < v.size(); ++i)
     {
         // Solo nos interesan los estudiantes con nota máx
