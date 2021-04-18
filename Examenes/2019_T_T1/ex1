@@ -1,0 +1,106 @@
+#include <iostream>
+#include <list>
+#include <string>
+
+using namespace std;
+
+typedef pair<string,int> parell; // els camps es diuen first i second
+struct transaccio {
+    parell dades;
+    char operacio; // possibles valors 'A', 'B' o 'M'
+
+    transaccio(parell dades, char operacio)
+    {
+        this->dades = dades;
+        this->operacio = operacio;
+    }
+};
+
+
+// Pre: l = L; l i lt estan ordenades de manera estrictament creixen per la string (no conté strings repetides)
+// Post: l és el resultat d'aplicar a L totes les transaccions d'lt
+void aplica_transaccions(list<parell>& l, const list<transaccio>& lt)
+{
+    list<transaccio>::const_iterator transIter = lt.begin(), transIterEnd = lt.end();
+    list<parell>::iterator listIter = l.begin(), listIterEnd = l.end();
+
+    //Inv: transIter < transIterEnd
+    while (transIter != transIterEnd)
+    {
+        while(listIter != listIterEnd && (*listIter).first < (*transIter).dades.first) ++listIter;
+        switch ((*transIter).operacio)
+        {
+            case 'A':
+                if ((*listIter).first != (*transIter).dades.first)
+                {
+                    l.insert(listIter, (*transIter).dades);
+                }
+                break;
+            case 'B':
+                if ((*listIter).first == (*transIter).dades.first);
+                {
+                    listIter = l.erase(listIter);
+                }
+                break;
+            case 'M':
+                if ((*listIter).first == (*transIter).dades.first)
+                {
+                    (*listIter).second = (*transIter).dades.second;
+                }
+                break;
+        }
+        ++transIter;
+    }
+}
+
+void printlistprell(list<parell>& l)
+{
+    list<parell>::iterator it = l.begin();
+    cout << '[';
+    bool first = true;
+    for (it = it; it != l.end(); ++it)
+    {
+        if (!first) cout << ',';
+        else first = false;
+        cout << '(' << (*it).first << ',' << (*it).second << ')';
+    } cout << ']';
+}
+
+void printlisttrans(list<transaccio>& l)
+{
+    list<transaccio>::iterator it = l.begin();
+    cout << '[';
+    bool first = true;
+    for (it = it; it != l.end(); ++it)
+    {
+        if (!first) cout << ',';
+        else first = false;
+        cout << '(' << '(' << (*it).dades.first << ',' << (*it).dades.second << ')' << ',' << (*it).operacio << ')';
+    }
+    cout << ']';
+}
+
+int main ()
+{
+    list<parell> l;
+    list <transaccio> lt;
+
+    l.push_back(parell("bleda",12));
+    l.push_back(parell("ceba",7));
+    l.push_back(parell("col",8));
+    l.push_back(parell("enciam",11));
+    l.push_back(parell("espinacs",15));
+
+    lt.push_back(transaccio(parell("bleda", 0),'B'));
+    lt.push_back(transaccio(parell("ceba", 6),'M'));
+    lt.push_back(transaccio(parell("escarola", 18),'A'));
+    lt.push_back(transaccio(parell("espinacs", 0),'B'));
+    lt.push_back(transaccio(parell("tomaquet", 18),'A'));
+
+    printlistprell(l); cout << endl;
+    printlisttrans(lt); cout << endl;
+    aplica_transaccions(l, lt);
+    printlistprell(l); cout << endl;
+
+
+}
