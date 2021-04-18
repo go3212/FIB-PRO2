@@ -9,5 +9,12 @@ using namespace std;
          first element of the path is on the top of c */
 void cami_preferent(const BinTree<int>& a, stack<int>& c)
 {
-    
+    stack<BinTree<int>> steps; steps.push(a);
+    BinTree<int> myTreeRight = a.right(), myTreeLeft = a.left();
+
+
+
+
 }
+
+void recursive_DFS();
