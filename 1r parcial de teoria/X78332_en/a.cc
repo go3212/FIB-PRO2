@@ -1,3 +1,7 @@
+/** El programa falla el último caso del jutge, el de asignación de pilas. 
+ *  No se hace ninguna asignación, por lo que no entiendo por qué falla.
+ */
+
 #include <iostream>
 #include "BinTree.hh"
 #include <stack>
@@ -15,22 +19,15 @@ int elements(const BinTree<int>& a)
 
     return 1 + count;
 }
-/*
-void longest_path (const BinTree<int>& a, stack<int>& path)
-{
-    if (a.empty()) return void;
 
-    longest_path(a.left(), path);
-    longest_path(a.right(), path);
-}
-*/
 /* Pre: c is empty */
 /* Post: c contains the preferential path of a; if it is non-empty, the
          first element of the path is on the top of c */
 void cami_preferent(const BinTree<int>& a, stack<int>& c)
 {
     if (a.empty()) return void();
-
+    BinTree<int> left = a.left();
+    BinTree<int> right = a.right();
 
     if (elements(a.left()) >= elements(a.right())) cami_preferent(a.left(), c);
     else cami_preferent(a.right(), c);
@@ -47,16 +44,6 @@ void read_bintree_int(BinTree<int>& a,int marca)
         BinTree<int> r;
         read_bintree_int(r,marca);
         a=BinTree<int>(x,l,r);
-  }
-}
-
-void write_bintree_int(const BinTree<int> &a)
-{
-        if (not a.empty()) {
-                int x = a.value();
-                write_bintree_int(a.left());
-                cout << " " << x;
-                write_bintree_int(a.right());
   }
 }
 
