@@ -18,8 +18,8 @@ private:
 
 static void esborra_node_pila(node_pila* m) 
     /* Pre: cert */
-    /* Post: no fa res si m és NULL, en cas contrari, allibera espai
-       dels nodes de la cadena que té el node apuntat per m com a
+    /* Post: no fa res si m ï¿½s NULL, en cas contrari, allibera espai
+       dels nodes de la cadena que tï¿½ el node apuntat per m com a
        primer */
   {  
     if (m != NULL) {
@@ -40,7 +40,7 @@ public:
 
   Pila() 
     /* Pre: cert */
-    /* Post: El resultat és una pila sense cap element */
+    /* Post: El resultat ï¿½s una pila sense cap element */
   {
     altura= 0;
     primer_node= NULL;
@@ -49,7 +49,7 @@ public:
   
   Pila(const Pila& original) 
     /* Pre: cert */
-    /* Post: El resultat és una còpia d'original */
+    /* Post: El resultat ï¿½s una cï¿½pia d'original */
   {
     altura= original.altura;
     primer_node = copia_node_pila_it(original.primer_node);
@@ -57,8 +57,8 @@ public:
   
 
   ~Pila() 
-    // Destructora: Esborra automàticament els objectes locals en
-    // sortir d'un àmbit de visibilitat
+    // Destructora: Esborra automï¿½ticament els objectes locals en
+    // sortir d'un ï¿½mbit de visibilitat
   {
     esborra_node_pila_it(primer_node);
   }
@@ -76,7 +76,7 @@ public:
         
   void empilar (const T& x) 
     /* Pre: cert */
-    /* Post: El p.i. és com el p.i. original amb x afegit
+    /* Post: El p.i. ï¿½s com el p.i. original amb x afegit
        com a darrer element */
   {
     node_pila* aux;
@@ -88,35 +88,35 @@ public:
   }
 
   void desempilar () 
-    /* Pre: el p.i. és una pila no buida (<=> primer_node != NULL) */ 
-    /* Post: El p.i. és com el p.i. original però sense el darrer
+    /* Pre: el p.i. ï¿½s una pila no buida (<=> primer_node != NULL) */ 
+    /* Post: El p.i. ï¿½s com el p.i. original perï¿½ sense el darrer
        element afegit al p.i. original */
   {
     node_pila* aux;
-    aux= primer_node; // conserva l'accés al primer node abans
-    //   d'avançar
-    primer_node= primer_node->seguent; // avança
+    aux= primer_node; // conserva l'accï¿½s al primer node abans
+    //   d'avanï¿½ar
+    primer_node= primer_node->seguent; // avanï¿½a
     delete aux; // allibera l'espai de l'antic cim
     --altura;
   }
 
   T cim() const 
-    /* Pre: el p.i. és una pila no buida (<=> primer_node != NULL) */
-    /* Post: el resultat és el darrer element afegit al p.i. */ 
+    /* Pre: el p.i. ï¿½s una pila no buida (<=> primer_node != NULL) */
+    /* Post: el resultat ï¿½s el darrer element afegit al p.i. */ 
   { 
     return primer_node->info;
   }
 
   bool es_buida() const 
     /* Pre: cert */
-    /* Post: El resultat indica si el p.i. és una pila buida o no */
+    /* Post: El resultat indica si el p.i. ï¿½s una pila buida o no */
   {
     return primer_node==NULL;
   }
 
   int mida() const 
     /* Pre: cert */
-    /* Post: El resultat és el nombre d'elements del p.i. */
+    /* Post: El resultat ï¿½s el nombre d'elements del p.i. */
   {
     return altura;
   }
