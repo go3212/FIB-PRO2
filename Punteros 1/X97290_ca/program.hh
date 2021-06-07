@@ -53,7 +53,7 @@ Llista& operator=(const Llista& original)
     {
         node_llista* del = primer_node;
         primer_node = primer_node->seg;
-        delete del  ;
+        delete del;
         --longitud;
     }
     primer_node = copia_node_llista_it(original.primer_node, original.act, this->ultim_node, this->act);
